@@ -1,0 +1,18 @@
+services:
+  codex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    init: true
+    working_dir: /workspace
+    volumes:
+      - ..:/workspace
+      - codex-home:/home/node/.codex
+    environment:
+      - CODEX_YOLO=${CODEX_YOLO:-true}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+
+volumes:
+  codex-home:

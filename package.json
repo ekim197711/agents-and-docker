@@ -1,0 +1,16 @@
+{
+  "name": "demo-dir",
+  "private": true,
+  "description": "Run Antigravity and Codex CLI in Docker",
+  "scripts": {
+    "start": "docker compose -f antigravity_docker/docker-compose.yml run --rm antigravity",
+    "agy": "docker compose -f antigravity_docker/docker-compose.yml run --rm antigravity",
+    "agy:build": "docker compose -f antigravity_docker/docker-compose.yml build antigravity",
+    "agy:rebuild": "docker compose -f antigravity_docker/docker-compose.yml run --rm --build antigravity",
+    "down": "docker compose -f antigravity_docker/docker-compose.yml down",
+    "codex": "docker compose -f codex_docker/docker-compose.yml run --rm codex",
+    "codex:build": "docker compose -f codex_docker/docker-compose.yml build codex",
+    "codex:rebuild": "docker compose -f codex_docker/docker-compose.yml run --rm --build codex",
+    "codex:down": "docker compose -f codex_docker/docker-compose.yml down"
+  }
+}

@@ -1,0 +1,27 @@
+services:
+  antigravity:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: antigravity-agy
+    # Allocate interactive terminal for the agy TUI
+    stdin_open: true
+    tty: true
+    # Working directory mapped inside container
+    working_dir: /workspace
+    volumes:
+      # Map current host directory to /workspace inside container
+      - ..:/workspace
+      # Optional: Share host Antigravity/Gemini authentication and settings
+      - ~/.gemini:/root/.gemini
+    environment:
+      # Pass Gemini API key if using API key authentication
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      # agy listens for the OAuth callback on localhost inside the container.
+      # The host browser cannot reach that, so login appears to hang.
+      # SSH_* makes agy use the remote copy/paste login flow instead.
+      #- SSH_CONNECTION=172.17.0.1 22 172.17.0.2 22
+      #- SSH_CLIENT=172.17.0.1 22 22
+      #- SSH_TTY=/dev/pts/0
+    # Launch agy in YOLO mode (auto-approves all tool permissions)
+    command: ["--dangerously-skip-permissions"]

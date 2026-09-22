@@ -1,0 +1,21 @@
+services:
+  antigravity:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: antigravity-agy
+    # Allocate interactive terminal for the agy TUI
+    stdin_open: true
+    tty: true
+    # Working directory mapped inside container
+    working_dir: /workspace
+    volumes:
+      # Map current host directory to /workspace inside container
+      - .:/workspace
+      # Optional: Share host Antigravity/Gemini authentication and settings
+      - ~/.gemini:/root/.gemini
+    environment:
+      # Pass Gemini API key if using API key authentication
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    # Launch agy in YOLO mode (auto-approves all tool permissions)
+    command: ["--dangerously-skip-permissions"]
