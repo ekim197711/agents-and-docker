@@ -1,6 +1,6 @@
-﻿# Antigravity and Codex CLI in Docker
+﻿# Antigravity, Codex, and Claude Code in Docker
 
-Run either CLI from the project root using npm. Requires Node.js/npm and Docker with Compose v2 and a running Linux container engine.
+Run a CLI from the project root using npm. Requires Node.js/npm and Docker with Compose v2 and a running Linux container engine.
 
 ## Quick start
 
@@ -12,11 +12,15 @@ npm start
 npm run codex:build
 npm run codex -- login --device-auth
 npm run codex
+
+# Build and launch Claude Code in YOLO mode
+npm run claude:build
+npm run claude
 ```
 
 Device login uses a browser on your host and may need to be enabled in your ChatGPT security settings. See the [official Codex authentication documentation](https://developers.openai.com/codex/auth).
 
-Both containers mount this project's root at `/workspace`, so edits persist on your host. Arguments after `--` are passed to the CLI, for example `npm run codex -- --help`.
+Codex and Claude Code mount this project's root at `/workspace`, so edits persist on your host. Arguments after `--` are passed to the CLI, for example `npm run codex -- --help` or `npm run claude -- --help`. See [Claude Docker setup](CLAUDE_DOCKER.md) for authentication, version pinning, and YOLO-mode details.
 
 ## Commands
 
@@ -30,6 +34,10 @@ Both containers mount this project's root at `/workspace`, so edits persist on y
 | `npm run codex:build` | Build the Codex image. |
 | `npm run codex:rebuild` | Build and run Codex. |
 | `npm run codex:down` | Remove Codex containers and network; preserve login data. |
+| `npm run claude` | Run Claude Code interactively in YOLO mode. |
+| `npm run claude:build` | Build the Claude Code image. |
+| `npm run claude:rebuild` | Build and run Claude Code. |
+| `npm run claude:down` | Remove Claude containers and network; preserve login data. |
 
 Run commands automatically build an image when it does not exist. Build commands reuse Docker's layer cache.
 
@@ -45,8 +53,14 @@ codex_docker/
   docker-compose.yml
   .dockerignore
   entrypoint.sh
+claude_docker/
+  Dockerfile
+  docker-compose.yml
+  .dockerignore
+  entrypoint.sh
 package.json
 README.md
+CLAUDE_DOCKER.md
 ```
 
 ## Codex

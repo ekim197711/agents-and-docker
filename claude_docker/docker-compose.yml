@@ -1,0 +1,20 @@
+services:
+  claude:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CLAUDE_CODE_VERSION: ${CLAUDE_CODE_VERSION:-latest}
+    stdin_open: true
+    tty: true
+    init: true
+    working_dir: /workspace
+    volumes:
+      - ..:/workspace
+      - claude-home:/home/node
+    environment:
+      - CLAUDE_CODE_YOLO=${CLAUDE_CODE_YOLO:-true}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+
+volumes:
+  claude-home:
